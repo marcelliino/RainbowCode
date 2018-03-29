@@ -4,28 +4,33 @@
 void ofApp::setup(){
     ofSetFrameRate(60);
     ofSetVerticalSync(true);
+    
+//    set the gui here using ofxPanel grouping
     gui.setup();
     gui.add(brightness.setup("brightness", 225, 0, 255));
     gui.add(method.setup(true));
+    gui.add(absoluteNumber.setup("absolute number", true));
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    
+//    LOL idk why i declare color = rateX.. instead of just using rateX
     color = rateX;
 
+    
     if (play) {
         
         //rgb algorithm:
-        if (red < 0) {
-            red = 0;
-        }
-        if (green < 0) {
-            green = 0;
-        }
-        if (blue < 0) {
-            blue = 0;
-        }
+// if 0 method replaced with the abs value at the end of rgb algorithm
+//        if (red < 0) {
+//            red = 0;
+//        }
+//        if (green < 0) {
+//            green = 0;
+//        }
+//        if (blue < 0) {
+//            blue = 0;
+//        }
         if (red > 255) {
             red = 255;
         }
@@ -47,7 +52,15 @@ void ofApp::update(){
             red += color;
             green -= color;
         }
+        
+//This abs replace the if ( x < 0 ){ x = 0} at the top ^
+        if (absoluteNumber) {
+            red = abs(red);
+            green = abs(green);
+            blue = abs(blue);
+        }
     
+        
         //hue algorithm:
         hue++;
         if (hue > 255.0) {
@@ -184,46 +197,11 @@ void ofApp::keyReleased(int key){
 }
 
 //--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y ){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y){
-
-}
-
-//--------------------------------------------------------------
 void ofApp::windowResized(int w, int h){
 
 }
 
 //--------------------------------------------------------------
-void ofApp::gotMessage(ofMessage msg){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo){ 
-
+void ofApp::exit(){
+    
 }
